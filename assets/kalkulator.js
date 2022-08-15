@@ -18,9 +18,28 @@ const calculator = {
    
   function inputDigit(digit) {
     if (calculator.displayNumber === '0') {
-      calculator.displayNumber = digit;
+      calculator.displayNumber = digit; 
     } else {
       calculator.displayNumber += digit;
+    }
+  }
+
+  function inverseNumber() {
+    if (calculator.displayNumber === '0') {
+      return;
+    }
+    calculator.displayNumber = calculator.displayNumber * -1;
+  }
+
+  function handleOperator(operator) {
+    if (!calculator.isWaitForSecondNumber) {
+      calculator.operator = operator;
+      calculator.isWaitForSecondNumber = true;
+      calculator.firstNumber = calculator.displayNumber;
+
+      calculator.displayNumber = '0';
+    } else {
+      alert('operator sudah ditetapkan');
     }
   }
    
@@ -34,6 +53,23 @@ const calculator = {
           clearCalculator();
           updateDisplay();
           return;
+      }
+
+      if (target.classList.contains('negative')) {
+        inverseNumber();
+        updateDisplay();
+        return;
+      }
+
+      if (target.classList.contains('equals')) {
+        performCalculation();
+        updateDisplay();
+        return;
+      }
+
+      if (target.classList.contains('operator')) {
+        handleOperator(target.innerText);
+        return;
       }
    
       inputDigit(target.innerText);
