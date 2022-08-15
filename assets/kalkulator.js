@@ -42,6 +42,22 @@ const calculator = {
       alert('operator sudah ditetapkan');
     }
   }
+
+  function performCalculation() {
+    if (calculator.firstNumber == null || calculator.operator == null) {
+      alert('anda belum menetapkan operator');
+      return;
+    }
+
+    let result = 0;
+    if (calculator.operator === '+') {
+      result = parseInt(calculator.firstNumber) + parseInt(calculator.displayNumber);
+    } else {
+      result = parseInt(calculator.firstNumber) - parseInt(calculator.displayNumber);
+    }
+
+    calculator.displayNumber = result;
+  }
    
   const buttons = document.querySelectorAll('.button');
   for (const button of buttons) {
